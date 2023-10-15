@@ -11,8 +11,8 @@
   "scripts": {
     "start": "node app.js",
     "test": "mocha --recursive --exit",
-     "lint": "eslint src"
-  // ... other scripts ...
+    "lint": "eslint src"
+    // ... other scripts ...
   },
   "author": "riaan@entersekt.com",
   "description": "Basic to do list exercise",
