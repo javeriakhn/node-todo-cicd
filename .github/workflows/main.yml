@@ -34,7 +34,7 @@ jobs:
         name: junit-report
         path: test-results.xml
 
-    - name: Deploy static site to Docker
+    - name: Deploy and push to Docker
       env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
