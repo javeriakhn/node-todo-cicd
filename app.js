@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 // https: //github.com/expressjs/method-override#custom-logic
-app.use(methodOverride(function (req, res) {
+app.use(methodOverride(function (req, _) {
     if (req.body && typeof req.body === 'object' && '_method' in req.body) {
         // look in urlencoded POST bodies and delete it
         let method = req.body._method;
@@ -76,7 +76,7 @@ app.get('/todo', function (req, res) {
         res.redirect('/todo');
     })
     /* Redirects to the to do list if the page requested is not found */
-    .use(function (req, res, next) {
+    .use(function (req, res, _) {
         res.redirect('/todo');
     })
 
