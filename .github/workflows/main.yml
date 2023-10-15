@@ -42,6 +42,6 @@ jobs:
         echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin  
         docker build -t node-todo-app .
         docker tag node-todo-app:latest javeriakashan/node-todo-app:latest
-        docker push my-registry/node-todo-app:latest
+        docker push javeriakashan/node-todo-app:latest
 
     
