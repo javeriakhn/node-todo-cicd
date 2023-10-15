@@ -1,0 +1,47 @@
+name: note-todo-app
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Choose the Node.js version you need
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run JavaScript Linters and Tests
+      run: |
+        # Run SonarQube for JavaScript linting
+        npm run lint
+
+        # Run tests and generate JUnit report
+        npm test -- --reporter junit
+
+    - name: Upload JUnit Test Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: junit-report
+        path: test-results.xml
+
+    - name: Deploy static site to Docker
+      env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+      run: |
+        echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin  
+        docker build -t node-todo-app .
+        docker tag node-todo-app:latest javeriakashan/node-todo-app:latest
+        docker push my-registry/node-todo-app:latest
+
+    
