@@ -23,15 +23,13 @@ jobs:
       - name: Run JavaScript Linters and Tests
         run: npm run lint
         
-     - name: SonarQube Analysis
+      - name: SonarQube Analysis
         env:
-        SONARQUBE_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
-        SONAR_HOST_URL: 'http://localhost:9000'
+          SONARQUBE_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
+          SONAR_HOST_URL: 'http://localhost:9000'
         run: |
-        npm install -g sonarqube-scanner
-        sonar-scanner -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONARQUBE_TOKEN
-
-       
+          npm install -g sonarqube-scanner
+          sonar-scanner -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONARQUBE_TOKEN
 
       - name: Build and Push Docker Image
         env:
@@ -42,7 +40,6 @@ jobs:
           docker build -t node-todo-app .
           docker tag node-todo-app:latest javeriakashan/node-todo-app:latest
           docker push javeriakashan/node-todo-app:latest
-
 
 
     
