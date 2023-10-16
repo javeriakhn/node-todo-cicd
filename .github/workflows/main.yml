@@ -28,7 +28,7 @@ jobs:
           SONARQUBE_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}  # Add your SonarQube token secret
         run: |
           npm install -g sonarqube-scanner
-          sonar-scanner -Dsonar.host.url=https://localhost:9000/ -Dsonar.login=${SONARQUBE_TOKEN}
+          sonar-scanner -Dsonar.host.url=http://localhost:9000 -Dsonar.login=${SONARQUBE_TOKEN}
 
       - name: Build and Push Docker Image
         env:
@@ -39,6 +39,7 @@ jobs:
           docker build -t node-todo-app .
           docker tag node-todo-app:latest javeriakashan/node-todo-app:latest
           docker push javeriakashan/node-todo-app:latest
+
 
 
     
